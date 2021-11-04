@@ -31,7 +31,7 @@ header {
     font-size: xx-large;
 }
 
-#strbtn {
+.btn {
     background-color: #301934;
     color: white;
     padding: 10px 20px;
@@ -39,6 +39,10 @@ header {
     font-size: larger;
 }
 
-#strbtn:hover {
-    opacity: 80%;
+.btn:hover {
+    background-color: #b19cd9;
+}
+
+.hide {
+    display: none;
 }
