@@ -1,15 +1,31 @@
 const startButton = document.querySelector('.btn');
 const instr = document.getElementById('instr');
 const title = document.getElementById('title');
-const body = document.getElementById('quiz');
+const quiz = document.getElementById('quiz');
+const body = document.querySelector('body')
 let score = 0;
 const correct = " Correct! One point was added to your score."
 const incorrect = " Incorrect! 10 Seconds were deducted from your time."
+var counter = 2;
 
 
+function countDown() {
+   setInterval(function() {
+     counter--;
+      if (counter >= 0) {
+         time = document.getElementById("time");
+         time.innerHTML = counter;
+      }
+      if (counter === 0) {
+        clearInterval(counter);
+        quiz.innerHTML = '' 
+        gameOver();
+       }
+     }, 1000);
+}
 
 startButton.addEventListener('click', startGame);
-
+startButton.addEventListener('click', countDown);
 
 function startGame() {
 startButton.classList.add('hide');
@@ -17,7 +33,6 @@ instr.classList.add('hide');
 title.classList.add('hide');
 
 questionOne();
-
 }
 
 function questionOne() {
@@ -25,7 +40,7 @@ function questionOne() {
     document.querySelector('footer').innerHTML = "Score: " + score;
     
     var questionOne = document.createElement("p");
-    questionOne.textContent = "Commonly used data types DO Not Include:";
+    questionOne.textContent = "1. Commonly used data types DO Not Include:";
     questionOne.setAttribute('style', 'font-size: xx-large')
 
     function hide() {
@@ -42,6 +57,7 @@ function questionOne() {
     answerOne.setAttribute('class', 'btn');
     answerOne.addEventListener('click', hide);
     answerOne.addEventListener('click', function() {
+        counter = counter - 10
         document.querySelector('footer').innerHTML = "Score: " + score;
         document.querySelector('footer').append('. ' + incorrect); 
     })
@@ -50,7 +66,8 @@ function questionOne() {
     answerTwo.textContent = "2. booleans"
     answerTwo.setAttribute('class', 'btn')
     answerTwo.addEventListener('click', hide);
-    answerTwo.addEventListener('click', function() {   
+    answerTwo.addEventListener('click', function() {  
+        counter = counter - 10 
         document.querySelector('footer').innerHTML = "Score: " + score;
         document.querySelector('footer').append('. ' + incorrect); 
     })
@@ -70,22 +87,25 @@ function questionOne() {
     answerFour.setAttribute('class', 'btn')
     answerFour.addEventListener('click', hide);
     answerFour.addEventListener('click', function() {
+        counter = counter - 10
         document.querySelector('footer').innerHTML = "Score: " + score;
         document.querySelector('footer').append('. ' + incorrect); 
     })
     
-    body.append(questionOne)
-    body.append(answerOne)
-    body.append(answerTwo)
-    body.append(answerThree)
-    body.append(answerFour)
+    quiz.append(questionOne)
+    quiz.append(answerOne)
+    quiz.append(answerTwo)
+    quiz.append(answerThree)
+    quiz.append(answerFour)
+
+    
 }
 
 function questionTwo() {
     document.querySelector('footer').innerHTML = "Score: " + score;
     
     var questionTwo = document.createElement("p");
-    questionTwo.textContent = "The condition in an if/else statement is enclosed with _______________.";
+    questionTwo.textContent = "2. The condition in an if/else statement is enclosed with _______________.";
     questionTwo.setAttribute('style', 'font-size: xx-large')
 
     function hide() {
@@ -102,6 +122,7 @@ function questionTwo() {
     answerOne.setAttribute('class', 'btn');
     answerOne.addEventListener('click', hide);
     answerOne.addEventListener('click', function() {
+        counter = counter - 10
         document.querySelector('footer').innerHTML = "Score: " + score;
         document.querySelector('footer').append('. ' + incorrect); 
     })
@@ -121,6 +142,7 @@ function questionTwo() {
     answerThree.setAttribute('class', 'btn')
     answerThree.addEventListener('click', hide);
     answerThree.addEventListener('click', function() {
+        counter = counter - 10
         document.querySelector('footer').innerHTML = "Score: " + score;
         document.querySelector('footer').append('. ' + incorrect); 
     })
@@ -130,15 +152,16 @@ function questionTwo() {
     answerFour.setAttribute('class', 'btn')
     answerFour.addEventListener('click', hide);
     answerFour.addEventListener('click', function() {
+        counter = counter - 10
         document.querySelector('footer').innerHTML = "Score: " + score;
         document.querySelector('footer').append('. ' + incorrect); 
     })
     
-    body.append(questionTwo)
-    body.append(answerOne)
-    body.append(answerTwo)
-    body.append(answerThree)
-    body.append(answerFour)
+    quiz.append(questionTwo)
+    quiz.append(answerOne)
+    quiz.append(answerTwo)
+    quiz.append(answerThree)
+    quiz.append(answerFour)
 }
 
 
@@ -146,7 +169,7 @@ function questionThree() {
     document.querySelector('footer').innerHTML = "Score: " + score;
     
     var questionThree = document.createElement("p");
-    questionThree.textContent = "Arrays in Javascript can be used to store ______________.";
+    questionThree.textContent = "3. Arrays in Javascript can be used to store ______________.";
     questionThree.setAttribute('style', 'font-size: xx-large')
 
     function hide() {
@@ -163,6 +186,7 @@ function questionThree() {
     answerOne.setAttribute('class', 'btn');
     answerOne.addEventListener('click', hide);
     answerOne.addEventListener('click', function() {
+        counter = counter - 10
         document.querySelector('footer').innerHTML = "Score: " + score;
         document.querySelector('footer').append('. ' + incorrect); 
     })
@@ -172,6 +196,7 @@ function questionThree() {
     answerTwo.setAttribute('class', 'btn')
     answerTwo.addEventListener('click', hide);
     answerTwo.addEventListener('click', function() { 
+        counter = counter - 10
         document.querySelector('footer').innerHTML = "Score: " + score;
         document.querySelector('footer').append('. ' + incorrect)
     })
@@ -181,6 +206,7 @@ function questionThree() {
     answerThree.setAttribute('class', 'btn')
     answerThree.addEventListener('click', hide);
     answerThree.addEventListener('click', function() {
+        counter = counter - 10
         document.querySelector('footer').innerHTML = "Score: " + score;
         document.querySelector('footer').append('. ' + incorrect); 
     })
@@ -195,11 +221,11 @@ function questionThree() {
         document.querySelector('footer').append('. ' + correct); 
     })
     
-    body.append(questionThree)
-    body.append(answerOne)
-    body.append(answerTwo)
-    body.append(answerThree)
-    body.append(answerFour)
+    quiz.append(questionThree)
+    quiz.append(answerOne)
+    quiz.append(answerTwo)
+    quiz.append(answerThree)
+    quiz.append(answerFour)
 
 }
 
@@ -207,7 +233,7 @@ function questionFour() {
     document.querySelector('footer').innerHTML = "Score: " + score;
     
     var questionFour = document.createElement("p");
-    questionFour.textContent = "String values must be enclosed within _________ when being assigned to variables.";
+    questionFour.textContent = "4. String values must be enclosed within _________ when being assigned to variables.";
     questionFour.setAttribute('style', 'font-size: xx-large')
 
     function hide() {
@@ -224,6 +250,7 @@ function questionFour() {
     answerOne.setAttribute('class', 'btn');
     answerOne.addEventListener('click', hide);
     answerOne.addEventListener('click', function() {
+        counter = counter - 10
         document.querySelector('footer').innerHTML = "Score: " + score;
         document.querySelector('footer').append('. ' + incorrect); 
     })
@@ -233,6 +260,7 @@ function questionFour() {
     answerTwo.setAttribute('class', 'btn')
     answerTwo.addEventListener('click', hide);
     answerTwo.addEventListener('click', function() { 
+        counter = counter - 10
         document.querySelector('footer').innerHTML = "Score: " + score;
         document.querySelector('footer').append('. ' + incorrect)
     })
@@ -251,16 +279,17 @@ function questionFour() {
     answerFour.textContent = "4. parentheses"
     answerFour.setAttribute('class', 'btn')
     answerFour.addEventListener('click', hide);
-    answerFour.addEventListener('click', function() {      
+    answerFour.addEventListener('click', function() {  
+        counter = counter - 10    
         document.querySelector('footer').innerHTML = "Score: " + score;
         document.querySelector('footer').append('. ' + incorrect); 
     })
     
-    body.append(questionFour)
-    body.append(answerOne)
-    body.append(answerTwo)
-    body.append(answerThree)
-    body.append(answerFour)
+    quiz.append(questionFour)
+    quiz.append(answerOne)
+    quiz.append(answerTwo)
+    quiz.append(answerThree)
+    quiz.append(answerFour)
 
 }
 
@@ -268,7 +297,7 @@ function questionFive() {
     document.querySelector('footer').innerHTML = "Score: " + score;
     
     var questionFive = document.createElement("p");
-    questionFive.textContent = "A very useful tool used during development and debugging for printing content to the debugger is:";
+    questionFive.textContent = "5. A very useful tool used during development and debugging for printing content to the debugger is:";
     questionFive.setAttribute('style', 'font-size: xx-large')
 
     function hide() {
@@ -277,7 +306,7 @@ function questionFive() {
         answerTwo.classList.add('hide');
         answerThree.classList.add('hide');
         answerFour.classList.add('hide');
-        // questionFive();
+        allDone();
     }
     
     var answerOne = document.createElement('button')
@@ -285,6 +314,7 @@ function questionFive() {
     answerOne.setAttribute('class', 'btn');
     answerOne.addEventListener('click', hide);
     answerOne.addEventListener('click', function() {
+        counter = counter - 10
         document.querySelector('footer').innerHTML = "Score: " + score;
         document.querySelector('footer').append('. ' + incorrect); 
     })
@@ -293,7 +323,8 @@ function questionFive() {
     answerTwo.textContent = "2. terminal/bash"
     answerTwo.setAttribute('class', 'btn')
     answerTwo.addEventListener('click', hide);
-    answerTwo.addEventListener('click', function() { 
+    answerTwo.addEventListener('click', function() {
+        counter = counter - 10 
         document.querySelector('footer').innerHTML = "Score: " + score;
         document.querySelector('footer').append('. ' + incorrect)
     })
@@ -303,6 +334,7 @@ function questionFive() {
     answerThree.setAttribute('class', 'btn')
     answerThree.addEventListener('click', hide);
     answerThree.addEventListener('click', function() {
+        counter = counter - 10
         document.querySelector('footer').innerHTML = "Score: " + score;
         document.querySelector('footer').append('. ' + incorrect); 
     })
@@ -317,15 +349,47 @@ function questionFive() {
         document.querySelector('footer').append('. ' + correct); 
     })
     
-    body.append(questionFive)
-    body.append(answerOne)
-    body.append(answerTwo)
-    body.append(answerThree)
-    body.append(answerFour)
+    quiz.append(questionFive)
+    quiz.append(answerOne)
+    quiz.append(answerTwo)
+    quiz.append(answerThree)
+    quiz.append(answerFour)
 
 }
 
 function allDone() {
+
     
+    var allDone = document.createElement('div');
+    allDone.textContent = 'All done!'; 
+    allDone.setAttribute('style', 'font-size: xx-large')
+    var finalScore = document.createElement('div');
+    finalScore.setAttribute('style', 'font-size: x-large')
+    finalScore.textContent = 'Your final score is ' + score +'!' + ' Time left: ' + counter + '.'
+    var initials = document.createElement('div');
+    initials.innerHTML = 'Enter initials: <input class = inp></input> <button class = btn >Submit</button>' 
+    initials.setAttribute('style', 'font-size: x-large')
+
+    quiz.append(allDone);
+    quiz.append(finalScore);
+    quiz.append(initials);
+
+
+}
+
+function gameOver() {
+    var allDone = document.createElement('div');
+    allDone.textContent = 'Times Up!'; 
+    allDone.setAttribute('style', 'font-size: xx-large')
+    var finalScore = document.createElement('div');
+    finalScore.setAttribute('style', 'font-size: x-large')
+    finalScore.textContent = 'Your final score is ' + score +'!' + ' Time left: ' + counter + '.'
+    var initials = document.createElement('div');
+    initials.innerHTML = 'Enter initials: <input class = inp></input> <button class = btn >Submit</button>' 
+    initials.setAttribute('style', 'font-size: x-large')
+
+    quiz.append(allDone);
+    quiz.append(finalScore);
+    quiz.append(initials);
 
 }
