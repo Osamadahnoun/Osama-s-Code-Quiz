@@ -1,20 +1,26 @@
+// Global Variables
 const startButton = document.querySelector('.btn');
 const instr = document.getElementById('instr');
 const title = document.getElementById('title');
 const quiz = document.getElementById('quiz');
 const body = document.querySelector('body')
+const footer = document.querySelector('footer')
+var ul = document.createElement('ul');
+var li = document.createElement('li');
+var view = document.getElementById('score');
 let score = 0;
+var scores = [];
 const correct = " Correct! One point was added to your score."
 const incorrect = " Incorrect! 10 Seconds were deducted from your time."
-var counter = 2;
+var counter = 75;
 
-
+//Starts Timer
 function countDown() {
    setInterval(function() {
      counter--;
       if (counter >= 0) {
          time = document.getElementById("time");
-         time.innerHTML = counter;
+         time.innerHTML = 'Time: ' + counter;
       }
       if (counter === 0) {
         clearInterval(counter);
@@ -27,14 +33,15 @@ function countDown() {
 startButton.addEventListener('click', startGame);
 startButton.addEventListener('click', countDown);
 
+//Starts game
 function startGame() {
 startButton.classList.add('hide');
 instr.classList.add('hide');
 title.classList.add('hide');
-
 questionOne();
 }
 
+//Cycles through questions 1-5
 function questionOne() {
 
     document.querySelector('footer').innerHTML = "Score: " + score;
@@ -97,8 +104,6 @@ function questionOne() {
     quiz.append(answerTwo)
     quiz.append(answerThree)
     quiz.append(answerFour)
-
-    
 }
 
 function questionTwo() {
@@ -164,7 +169,6 @@ function questionTwo() {
     quiz.append(answerFour)
 }
 
-
 function questionThree() {
     document.querySelector('footer').innerHTML = "Score: " + score;
     
@@ -226,7 +230,6 @@ function questionThree() {
     quiz.append(answerTwo)
     quiz.append(answerThree)
     quiz.append(answerFour)
-
 }
 
 function questionFour() {
@@ -356,26 +359,71 @@ function questionFive() {
     quiz.append(answerFour)
 
 }
+// Question cycle ends here
 
+
+//Gameover and times up page
 function allDone() {
-
-    
     var allDone = document.createElement('div');
     allDone.textContent = 'All done!'; 
     allDone.setAttribute('style', 'font-size: xx-large')
     var finalScore = document.createElement('div');
     finalScore.setAttribute('style', 'font-size: x-large')
     finalScore.textContent = 'Your final score is ' + score +'!' + ' Time left: ' + counter + '.'
-    var initials = document.createElement('div');
-    initials.innerHTML = 'Enter initials: <input class = inp></input> <button class = btn >Submit</button>' 
+    var initials = document.createElement('span');
+    initials.innerHTML = 'Enter initials: ' 
     initials.setAttribute('style', 'font-size: x-large')
+
+    function hide() {
+        allDone.classList.add('hide');
+        finalScore.classList.add('hide');
+        initials.classList.add('hide');
+        input.classList.add('hide');
+        submit.classList.add('hide');
+
+    }
+    
+    
+    var input = document.createElement('input'); 
+    input.classList.add('inp')
+    var submit = document.createElement('button');
+    submit.textContent = 'Submit'
+    submit.classList.add('btn')
+
+
+    submit.addEventListener('click', hide)
+
+
+    submit.addEventListener('click', function() {
+            li.textContent = input.value;
+            quiz.append(ul);
+            ul.append(li);
+            ul.append('Score: ' + score);
+            input.value = '';
+            highScores();
+        })
+
+    
 
     quiz.append(allDone);
     quiz.append(finalScore);
     quiz.append(initials);
+    quiz.append(input)
+    quiz.append(submit)
 
 
+    function lStorage (s) {
+    scores.push(score);
+    localStorage.setItem("Scores", JSON.stringify(scores));
+
+    }
+    var scores = [];
+
+    lStorage();
+    
+    counter = 0
 }
+
 
 function gameOver() {
     var allDone = document.createElement('div');
@@ -384,12 +432,129 @@ function gameOver() {
     var finalScore = document.createElement('div');
     finalScore.setAttribute('style', 'font-size: x-large')
     finalScore.textContent = 'Your final score is ' + score +'!' + ' Time left: ' + counter + '.'
-    var initials = document.createElement('div');
-    initials.innerHTML = 'Enter initials: <input class = inp></input> <button class = btn >Submit</button>' 
+    var initials = document.createElement('span');
+    initials.innerHTML = 'Enter initials: ' 
     initials.setAttribute('style', 'font-size: x-large')
+
+    function hide() {
+        allDone.classList.add('hide');
+        finalScore.classList.add('hide');
+        initials.classList.add('hide');
+        input.classList.add('hide');
+        submit.classList.add('hide');
+    }
+    
+    
+    var input = document.createElement('input'); 
+    input.classList.add('inp')
+    var submit = document.createElement('button');
+    submit.textContent = 'Submit'
+    submit.classList.add('btn')
+
+
+    submit.addEventListener('click', hide)
+
+
+    submit.addEventListener('click', function() {
+            li.textContent = input.value;
+            quiz.append(ul);
+            ul.append(li);
+            ul.append('Score: ' + score);
+            input.value = '';
+            highScores();
+        })
 
     quiz.append(allDone);
     quiz.append(finalScore);
     quiz.append(initials);
+    quiz.append(input)
+    quiz.append(submit)
 
+
+    function lStorage (s) {
+    scores.push(score);
+    localStorage.setItem("Scores", JSON.stringify(scores));
+    }
+
+    lStorage();
+    
+    counter = 0
 }
+
+
+
+//Highscore page
+function highScores() {
+            var btn1 = document.createElement('button');
+            var btn2 = document.createElement('button');
+            btn1.setAttribute('class', 'btn');
+            btn2.setAttribute('class', 'btn');
+            btn1.textContent = 'Go back'
+            btn2.textContent = 'Clear High Scores'
+            quiz.append(btn1);
+            quiz.append(btn2);
+        
+
+            btn1.addEventListener('click', function() {
+                title.classList.remove('hide')
+                startButton.classList.remove('hide');
+                instr.classList.remove('hide');
+                btn1.classList.add('hide');
+                btn2.classList.add('hide');
+                quiz.append(title);
+                quiz.append(instr);
+                quiz.append(startButton);
+                } )
+
+                btn2.addEventListener('click', function() {
+                    ul.classList.add('hide')
+
+                })
+
+    
+            }
+
+
+
+//view high scores page
+    function viewScores() {
+
+        view.addEventListener('click', function(){
+            var btn1 = document.createElement('button');
+            var btn2 = document.createElement('button');
+            var retrieve = localStorage.getItem("Scores");
+            btn1.setAttribute('class', 'btn');
+            btn2.setAttribute('class', 'btn');
+            btn1.textContent = 'Go back'
+            btn2.textContent = 'Clear High Scores'
+            quiz.append(btn1);
+            quiz.append(btn2);
+            quiz.append(li.textContent + "'s" + " score is" + retrieve);
+            title.classList.add('hide')
+            startButton.classList.add('hide');
+            instr.classList.add('hide');
+
+        
+
+            btn1.addEventListener('click', function() {
+                title.classList.remove('hide')
+                startButton.classList.remove('hide');
+                instr.classList.remove('hide');
+                btn1.classList.add('hide');
+                btn2.classList.add('hide');
+                quiz.append(title);
+                quiz.append(instr);
+                quiz.append(startButton);
+                } )
+
+                btn2.addEventListener('click', function() {
+                    ul.classList.add('hide');
+                    localStorage.clear();
+
+                })
+        })
+    }
+
+    viewScores();
+
+
